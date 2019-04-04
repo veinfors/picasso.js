@@ -68,7 +68,7 @@ function updateActiveMode(state, settings, isDiscrete) {
 }
 
 const axisComponent = {
-  require: ['chart', 'renderer', 'dockConfig'],
+  require: ['chart', 'renderer'],
   defaultSettings: {
     layout: {
       displayOrder: 0,
@@ -115,8 +115,6 @@ const axisComponent = {
     this.state.settings = resolveLocalSettings(this);
 
     this.state.concreteNodeBuilder = nodeBuilder(this.state.isDiscrete);
-
-    this.dockConfig.dock(this.state.settings.dock); // Override the dock setting (TODO should be removed)
 
     this.state.isHorizontal = this.state.settings.align === 'top' || this.state.settings.align === 'bottom';
     this.state.labels.activeMode = updateActiveMode(this.state, this.state.settings, this.state.isDiscrete);

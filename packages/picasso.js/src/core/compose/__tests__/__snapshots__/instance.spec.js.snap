@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`'should create default instance' 1`] = `
+Object {
+  "addChild": [Function],
+  "beforeDestroy": [Function],
+  "beforeMount": [Function],
+  "beforeRender": [Function],
+  "beforeUnmount": [Function],
+  "beforeUpdate": [Function],
+  "componentDidMount": [Function],
+  "componentDidUpdate": [Function],
+  "componentWillMount": [Function],
+  "componentWillReceiveProps": [Function],
+  "componentWillUnmount": [Function],
+  "componentWillUpdate": [Function],
+  "created": [Function],
+  "destroyed": [Function],
+  "getChildren": [Function],
+  "preferredSize": [Function],
+  "layoutComponents": [Function],
+  "localContext": Object {
+    "data": Array [],
+    "formatter": undefined,
+    "logger": undefined,
+    "renderer": "svg",
+    "scale": undefined,
+    "style": undefined,
+  },
+  "mounted": [Function],
+  "render": [Function],
+  "shouldComponentUpdate": [Function],
+  "update": [Function],
+  "updated": [Function],
+  "visible": true,
+}
+`;

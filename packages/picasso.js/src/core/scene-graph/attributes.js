@@ -39,4 +39,23 @@ function assignMappedAttribute(target, source) {
   });
 }
 
-export { mappedAttributes, assignMappedAttribute };
+/**
+ * Extends target object with transformed attributes from a source object to that target.
+ * Each supported attributes is converted to a mapped kebab-case notation.
+ * @ignore
+ *
+ * @param {object} target - Target object on which to assign mapped attribute values
+ * @param {object} source - Source object
+ */
+function extendAndTransformAttributes(source, target = {}) {
+  Object.keys(source).forEach((key) => {
+    if (mappedAttributes[key]) {
+      target[mappedAttributes[key]] = source[key];
+    } else {
+      target[key] = source[key];
+    }
+  });
+  return target;
+}
+
+export { mappedAttributes, assignMappedAttribute, extendAndTransformAttributes };

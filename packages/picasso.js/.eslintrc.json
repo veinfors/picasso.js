@@ -1,0 +1,13 @@
+{
+  "plugins": ["react"],
+  "settings": {
+    "react": {
+      "pragma": "h"
+    }
+  },
+  "rules": {
+    "class-methods-use-this": ["error", { "exceptMethods": ["render"] }],
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2
+  }
+}

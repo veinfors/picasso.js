@@ -101,6 +101,18 @@
             "type": "#/definitions/chart"
           }
         },
+        "compose": {
+          "kind": "function",
+          "params": [
+            {
+              "name": "definition",
+              "type": "#/definitions/chart-definition"
+            }
+          ],
+          "returns": {
+            "type": "#/definitions/chart"
+          }
+        },
         "version": {
           "description": "picasso.js version",
           "type": "string"
@@ -3620,6 +3632,77 @@
         }
       }
     },
+    "create~instance.addChild": {
+      "description": "Adds sub-component to this component, use index to decide the placement",
+      "kind": "function",
+      "params": []
+    },
+    "create~instance.getChildren": {
+      "description": "Gets sub-components from this component",
+      "kind": "function",
+      "params": [],
+      "returns": {
+        "description": "sub-components",
+        "type": "Array"
+      }
+    },
+    "renderer-container-def": {
+      "kind": "object",
+      "entries": {
+        "x": {
+          "description": "x-coordinate",
+          "optional": true,
+          "type": "number"
+        },
+        "y": {
+          "description": "y-coordinate",
+          "optional": true,
+          "type": "number"
+        },
+        "width": {
+          "description": "Width",
+          "optional": true,
+          "type": "number"
+        },
+        "height": {
+          "description": "Height",
+          "optional": true,
+          "type": "number"
+        },
+        "scaleRatio": {
+          "optional": true,
+          "kind": "object",
+          "entries": {
+            "x": {
+              "description": "Scale ratio on x-axis",
+              "optional": true,
+              "type": "number"
+            },
+            "y": {
+              "description": "Scale ratio on y-axis",
+              "optional": true,
+              "type": "number"
+            }
+          }
+        },
+        "margin": {
+          "optional": true,
+          "kind": "object",
+          "entries": {
+            "left": {
+              "description": "Left margin",
+              "optional": true,
+              "type": "number"
+            },
+            "top": {
+              "description": "Top margin",
+              "optional": true,
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
     "data-source": {
       "kind": "object",
       "entries": {
@@ -6058,63 +6141,6 @@
           "returns": {
             "description": "The bounding rectangle",
             "type": "#/definitions/rect"
-          }
-        }
-      }
-    },
-    "renderer-container-def": {
-      "kind": "object",
-      "entries": {
-        "x": {
-          "description": "x-coordinate",
-          "optional": true,
-          "type": "number"
-        },
-        "y": {
-          "description": "y-coordinate",
-          "optional": true,
-          "type": "number"
-        },
-        "width": {
-          "description": "Width",
-          "optional": true,
-          "type": "number"
-        },
-        "height": {
-          "description": "Height",
-          "optional": true,
-          "type": "number"
-        },
-        "scaleRatio": {
-          "optional": true,
-          "kind": "object",
-          "entries": {
-            "x": {
-              "description": "Scale ratio on x-axis",
-              "optional": true,
-              "type": "number"
-            },
-            "y": {
-              "description": "Scale ratio on y-axis",
-              "optional": true,
-              "type": "number"
-            }
-          }
-        },
-        "margin": {
-          "optional": true,
-          "kind": "object",
-          "entries": {
-            "left": {
-              "description": "Left margin",
-              "optional": true,
-              "type": "number"
-            },
-            "top": {
-              "description": "Top margin",
-              "optional": true,
-              "type": "number"
-            }
           }
         }
       }

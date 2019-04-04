@@ -14,22 +14,22 @@ picasso.component("bg-comp", {
 
   created: function created() {
     this.isVertical =
-      this.userSettings.layout.dock === "left" ||
-      this.userSettings.layout.dock === "right";
-    if (this.userSettings.layout.dock === "left") {
+      this.settings.layout.dock === "left" ||
+      this.settings.layout.dock === "right";
+    if (this.settings.layout.dock === "left") {
       this.angle = 270;
-    } else if (this.userSettings.layout.dock === "right") {
+    } else if (this.settings.layout.dock === "right") {
       this.angle = 90;
     }
   },
-  getPreferredSize: function() {
+  preferredSize: function() {
     return { width: 50, height: 50 };
   },
   render: function render() {
     var rectNode = {
       type: "rect",
-      fill: this.userSettings.settings.color,
-      opacity: this.userSettings.settings.opacity,
+      fill: this.settings.settings.color,
+      opacity: this.settings.settings.opacity,
       stroke: "black",
       strokeWidth: 1,
       width: this.rect.width,
@@ -40,14 +40,14 @@ picasso.component("bg-comp", {
     var cy = this.rect.height / 2;
     var keyTextNode = {
       type: "text",
-      text: this.userSettings.layout.dock,
+      text: this.settings.layout.dock,
       fontSize: "16px",
       fontFamily: "Arial",
       x: cx,
       y: cy,
       anchor: "middle",
       baseline: "middle",
-      fill: this.userSettings.settings.textColor,
+      fill: this.settings.settings.textColor,
       transform: this.isVertical
         ? "rotate(" + this.angle + "," + cx + "," + cy + ")"
         : ""

@@ -4,6 +4,7 @@ import about from './about';
 
 import {
   chart,
+  compose,
   renderer
 } from './core';
 
@@ -19,6 +20,7 @@ import dataRegistry from './core/data';
 import formatterRegistry from './core/formatter';
 import interactionRegistry from './core/interaction';
 import scaleRegistry from './core/chart/scales';
+import layoutRegistry from './core/layout';
 import { symbolRegistry } from './core/symbols';
 
 import loggerFn from './core/utils/logger';
@@ -74,6 +76,12 @@ function pic(config = {}, registries = {}) {
      * @private
      */
     symbol: registry(registries.symbol, 'symbol', logger),
+    /**
+     * Layout registry
+     * @type {registry}
+     * @private
+     */
+    layout: registry(registries.layout, 'layout', logger),
     // -- misc --
     /**
      * log some some stuff
@@ -106,7 +114,8 @@ function pic(config = {}, registries = {}) {
       palettes: config.palettes.concat(cfg.palettes || []),
       style: extend({}, config.style, cfg.style),
       logger: cfg.logger || config.logger,
-      renderer: cfg.renderer || config.renderer
+      renderer: cfg.renderer || config.renderer,
+      noBrowser: cfg.noBrowser || config.noBrowser
     };
     return pic(cc, regis);
   }
@@ -131,8 +140,26 @@ function pic(config = {}, registries = {}) {
     registries: regis,
     logger,
     style: config.style,
-    palettes: config.palettes
+    palettes: config.palettes,
+    currentAPI: 'CHART'
   });
+
+  /**
+   * @param {chart-definition} definition
+   * @returns {chart}
+   */
+  picassojs.compose = definition => compose(
+    definition,
+    {
+      registries: regis,
+      logger,
+      style: config.style,
+      palettes: config.palettes,
+      renderer: config.renderer,
+      noBrowser: config.noBrowser,
+      currentAPI: 'COMPOSE'
+    }
+  );
   picassojs.config = () => config;
 
   Object.keys(regis).forEach((key) => {
@@ -155,6 +182,7 @@ const p = pic({
   logger: {
     level: 0
   },
+  noBrowser: false,
   style,
   palettes
 }, {
@@ -164,7 +192,8 @@ const p = pic({
   interaction: interactionRegistry,
   renderer: renderer(),
   scale: scaleRegistry,
-  symbol: symbolRegistry
+  symbol: symbolRegistry,
+  layout: layoutRegistry
 });
 
 components.forEach(p.use);

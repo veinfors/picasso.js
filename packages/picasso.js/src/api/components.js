@@ -13,6 +13,7 @@ import labelsComponent from '../core/chart-components/labels';
 import categoricalLegend from '../core/chart-components/legend-cat';
 import sequentialLegend from '../core/chart-components/legend-seq';
 import lineComponent from '../core/chart-components/line';
+import layoutComponent from '../core/chart-components/layout';
 import brushAreaComponent from '../web/components/brush-area';
 import tooltipComponent from '../web/components/tooltip';
 import {
@@ -36,6 +37,7 @@ export default [
   categoricalLegend,
   sequentialLegend,
   lineComponent,
+  layoutComponent,
   brushAreaComponent,
   tooltipComponent,
   debugCollider,
