@@ -1,0 +1,19 @@
+div.rendering-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  flex: 1 1 auto;
+}
+
+div.rendering-wrapper div.rendering-area {
+  flex: 1 1 auto;
+  display: flex;
+  background: white;
+}
+
+div.rendering-wrapper div.message-wrapper {
+  display: flex;
+  flex: 0 1 auto;
+  height: 38px;
+  padding: 5px 10px;
+}
