@@ -6,6 +6,7 @@ import { collection as scaleCollection } from '../chart/scales';
 import themeFn from '../theme';
 import { measureText, textBounds } from '../../web/text-manipulation';
 import symbolFactory from '../symbols';
+import brush from '../brush';
 
 const UPD_DATA = 0x0001;
 const UPD_SETTINGS = 0x0010;
@@ -19,6 +20,7 @@ const createChartContext = (context, element) => {
   const isDataUpdate = () => updateMask & UPD_DATA;
   const isSettingsUpdate = () => updateMask & UPD_SETTINGS;
   const isOnlyDataUpdate = () => updateMask === UPD_DATA;
+  const brushes = {};
 
   let settings,
     data,
@@ -84,11 +86,37 @@ const createChartContext = (context, element) => {
   chartContext.formatter = v => currentFormatters.get(v);
   chartContext.logger = logger;
   chartContext.theme = theme;
+  // chartContext.brush = function (brushContext) {
+  //   return rootInstance.brush(brushContext);
+  // };
+  // chartContext.componentsFromPoint = function (point) {
+  //   return rootInstance.componentsFromPoint(point);
+  // };
+  chartContext.brush = function brushFn(name = 'default') {
+    if (!brushes[name]) {
+      brushes[name] = brush();
+    }
+    return brushes[name];
+  };
+
+  chartContext.componentsFromPoint = (p) => {
+    const comps = [];
+    rootInstance.getChildren().forEach(c => comps.push(...c.componentsFromPoint(p)));
+    return comps;
+  };
+
   chartContext.registries = registries;
   chartContext.resolver = settingsResolver({
     chart: chartContext
   });
-  chartContext.shapesAt = () => {};
+
+  chartContext.shapesAt = (shape, opts) => {
+    console.log('SHAPESAT!');
+    const shapes = [];
+    rootInstance.getChildren().forEach(c => shapes.push(...c.shapesAt(shape, opts)));
+    return shapes;
+  };
+
   chartContext.brushFromShapes = () => {};
   chartContext.symbol = symbol;
   chartContext.element = element;

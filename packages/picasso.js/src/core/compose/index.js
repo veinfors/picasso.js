@@ -54,7 +54,13 @@ const compose = (userDefinition, globalContext) => {
   };
 
   renderChart();
-  return { update, destroy };
+
+  return {
+    ...chartContext,
+    theme: () => chartContext.theme,
+    update,
+    destroy
+  };
 };
 
 export default compose;

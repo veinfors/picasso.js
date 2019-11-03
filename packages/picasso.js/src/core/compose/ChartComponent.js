@@ -10,6 +10,10 @@ class ChartComponent extends Component {
       nodes: []
     };
     this.instance.renderCallback = this.renderCallback.bind(this);
+    this.instance;
+    // this.instance.destroyCallback = () => {}; // this.renderCallback.bind(this);
+    // this.instance.sizeCallback = () => {};
+    // this.instance.appendToCallback = () => {};
   }
 
   renderCallback(nodes) {
@@ -67,6 +71,10 @@ class ChartComponent extends Component {
     this.instance.componentWillUnmount(...args);
     this.instance.beforeUnmount();
     this.instance.unmount();
+  }
+
+  itemsAt(point) {
+    return this.state.nodes[0] || [];
   }
 }
 

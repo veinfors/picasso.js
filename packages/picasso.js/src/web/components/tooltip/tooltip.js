@@ -269,12 +269,13 @@ const component = {
     this.state.prevent = !!p;
   },
   init(settings) {
-    this.state = {
+    this.state = extend({
       activeNodes: [],
       pointer: {},
       targetElement: null,
       prevent: false
-    };
+    }, this.state); // extend to keep current state...
+
     this.props = settings.settings;
     this.dispatcher = timeSpanDispatcher({
       defaultDuration: this.props.duration,
@@ -343,7 +344,7 @@ const component = {
       this.dispatcher.destroy();
       remove();
     }
-    this.init(settings);
+    this.init(settings); // TODO: should it actually initialize again?
   },
   render(h) {
     this.h = h;
