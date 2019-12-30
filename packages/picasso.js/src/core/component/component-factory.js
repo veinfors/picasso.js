@@ -397,7 +397,11 @@ function componentFactory(definition, context = {}) {
   fn.render = () => {
     const nodes = brushArgs.nodes = render.call(definitionContext, ...getRenderArgs());
     rend.render(nodes);
-    currentNodes = nodes;
+    // currentNodes = nodes;
+
+    if (settings.animations && (typeof settings.animations.enabled === 'function')) {
+      console.log('render - CURRENTNODES: ', currentNodes);
+    }
   };
 
   fn.hide = () => {
@@ -442,7 +446,12 @@ function componentFactory(definition, context = {}) {
       }
     });
 
-    if (currentNodes && settings.animations && settings.animations.enabled) {
+    if (settings.animations && (typeof settings.animations.enabled === 'function')) {
+      console.log('update - CURRENTNODES: ', currentNodes);
+    }
+
+    if (currentNodes && settings.animations && (typeof settings.animations.enabled === 'function'
+      ? settings.animations.enabled() : settings.animations.enabled)) {
       currentTween = tween({
         old: currentNodes,
         current: nodes
@@ -451,7 +460,11 @@ function componentFactory(definition, context = {}) {
     } else {
       rend.render(nodes);
     }
-    currentNodes = nodes;
+
+    if (settings.animations && (typeof settings.animations.enabled === 'function'
+      ? settings.animations.enabled() : settings.animations.enabled)) {
+      currentNodes = nodes;
+    }
 
     if (rend.setKey && typeof config.key === 'string') {
       rend.setKey(config.key);

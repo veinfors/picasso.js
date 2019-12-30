@@ -42,7 +42,8 @@ function tween({
       current.forEach((node, i) => {
         let id = trackBy(node, i);
         if (ids[id]) {
-          updated.ips.push(interpolateObject(ids[id], node));
+          const interpolatedUpdated = interpolateObject(ids[id], node);
+          updated.ips.push(interpolatedUpdated);
           updated.nodes.push(node);
           toBeUpdated.push(ids[id]);
           ids[id] = false;
@@ -50,7 +51,9 @@ function tween({
           entered.nodes.push(node);
           entered.ips.push(interpolateObject({
             r: 0.001,
-            opacity: 0
+            opacity: 0,
+            height: 0,
+            children: [{ opacity: 0 }]
           }, node));
         }
       });
@@ -62,28 +65,31 @@ function tween({
       });
       if (exited.ips.length) {
         stages.push({
-          easing: easeCubic,
-          duration: 200,
+          easing: (config.exited && config.exited.easing) || easeCubic,
+          duration: (config.exited && config.exited.duration) || 200,
           tweens: exited.ips,
           nodes: [...toBeUpdated]
         });
       }
       if (updated.ips.length) {
         stages.push({
-          easing: easeCubic,
-          duration: 400,
+          easing: (config.updated && config.updated.easing) || easeCubic,
+          duration: (config.updated && config.updated.duration) || 400,
           tweens: updated.ips,
           nodes: []
         });
       }
       if (entered.ips.length) {
         stages.push({
-          easing: easeElasticOut,
-          duration: 1200,
+          easing: (config.entered && config.entered.easing) || easeCubic,
+          duration: (config.entered && config.entered.duration) || (window.entered && window.entered.duration) || 1200,
           tweens: entered.ips,
           nodes: [...updated.nodes]
         });
       }
+
+      console.log('component: ', renderer.element().getAttribute('data-key'), ' - old: ', old, ' - current: ', current);
+      console.log('exited: ', exited.ips.length, 'updated: ', updated.ips.length, 'entered: ', entered.ips.length);
       // console.log(stages);
       if (stages.length) {
         stages[0].started = Date.now();
